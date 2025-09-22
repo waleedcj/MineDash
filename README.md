@@ -12,6 +12,7 @@ A high-performance, real-time cryptocurrency mining dashboard built with SolidJS
 
 The primary goal is to serve as a high-quality boilerplate and learning resource for building complex, interactive dashboards with SolidJS, TypeScript, and modern data-fetching practices using TanStack Query.
 
+
 ---
 
 ## Features
