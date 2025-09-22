@@ -5,6 +5,15 @@ on:
     branches: ["main"]
   workflow_dispatch:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -17,25 +26,24 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
+          cache-dependency-path: MineDash/package-lock.json
 
-      # CORRECTED: All 'run' steps now use a working directory
       - name: Install Dependencies
+        working-directory: MineDash
         run: npm install --legacy-peer-deps
-        working-directory: ./MineDash # IMPORTANT: Replace with your repo name
 
       - name: Build
+        working-directory: MineDash
         run: npm run build
         env:
-          BASE_PATH: /MineDash/ # IMPORTANT: Replace with your repo name
-        working-directory: ./MineDash # IMPORTANT: Replace with your repo name
+          BASE_PATH: /MineDash/
 
       - name: Create .nojekyll file
-        run: touch .output/public/.nojekyll
-        working-directory: ./MineDash # IMPORTANT: Replace with your repo name
+        working-directory: MineDash
+        run: touch dist/.nojekyll
 
       - name: Deploy to gh-pages branch
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: gh-pages
-          # This folder path is relative to the root of your repository checkout
-          folder: MineDash/.output/public # CORRECTED: Point to the folder within the checkout
+          folder: MineDash/dist
