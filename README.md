@@ -1,9 +1,3 @@
-Of course. A great project deserves a great README. It's the front door for any developer who discovers your repository.
-
-Here is a comprehensive `README.md` that reflects the current state of our advanced dashboard, outlines its exciting future, and invites contribution. It replaces the generic template with a professional, project-specific overview.
-
----
-
 # SolidJS Crypto Mining Dashboard
 
 ![SolidJS Logo](https://img.shields.io/badge/SolidJS-2C4F7C?style=for-the-badge&logo=solid&logoColor=white) ![TypeScript Logo](https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white) ![Tailwind CSS Logo](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white) ![Vite Logo](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
