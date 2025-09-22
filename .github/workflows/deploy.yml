@@ -1,53 +1,39 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy Static Content to Pages
+name: Deploy Solid-Start App to GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["main"] # Trigger the action on push to the main branch
   workflow_dispatch:
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
-
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: 'npm' # Using NPM's cache
+          cache: 'npm'
 
-      # CORRECTED: Using 'npm install --legacy-peer-deps' to bypass conflicts
-      - name: Install dependencies
+      - name: Install Dependencies
         run: npm install --legacy-peer-deps
 
-      # CORRECTED: Using 'npm run build'
       - name: Build
+        # This command builds your static site. The BASE_PATH environment
+        # variable is passed to your vite.config.ts
         run: npm run build
+        env:
+          BASE_PATH: /MineDash/ # IMPORTANT: This MUST match your repository name
 
-      - name: Setup Pages
-        uses: actions/configure-pages@v4
+      - name: Create .nojekyll file
+        # This file prevents GitHub Pages from ignoring folders that start with an underscore
+        run: touch .output/public/.nojekyll
 
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Deploy to gh-pages branch
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          # This path is now relative to the root, so we add the repo name
-          path: './MineDash/dist'
-          
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+          branch: gh-pages # The branch the action will push the built code to
+          folder: .output/public # The folder where solid-start puts the static site
