@@ -1,4 +1,4 @@
-name: Deploy Solid-Start App to GitHub Pages
+name: Deploy Vite Solid app to GitHub Pages
 
 on:
   push:
@@ -26,24 +26,22 @@ jobs:
         with:
           node-version: 20
           cache: 'npm'
-          cache-dependency-path: MineDash/package-lock.json
+          cache-dependency-path: package-lock.json
 
-      - name: Install Dependencies
-        working-directory: MineDash
-        run: npm install --legacy-peer-deps
+      - name: Install dependencies
+        run:  npm install --legacy-peer-deps
 
       - name: Build
-        working-directory: MineDash
         run: npm run build
-        env:
-          BASE_PATH: /MineDash/
 
-      - name: Create .nojekyll file
-        working-directory: MineDash
+      - name: Add SPA fallback (404.html)
+        run: cp dist/index.html dist/404.html
+
+      - name: Create .nojekyll
         run: touch dist/.nojekyll
 
       - name: Deploy to gh-pages branch
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           branch: gh-pages
-          folder: MineDash/dist
+          folder: dist
