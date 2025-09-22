@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    // General
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "target": "ESNext",
+
+    // Modules
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "noEmit": true,
+    "baseUrl": ".", // Set baseUrl to the project root
+    "paths": {
+      // No aliases, use relative paths as requested
+    },
+    // Type Checking & Safety
+    "strict": true,
+    "types": ["vite/client"]
+  }
+}

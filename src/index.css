@@ -1,0 +1,26 @@
+@import 'tailwindcss';
+body {
+    margin: 0;
+    font-family: 'Roboto Mono', monospace;
+    background-color: #1a1b26; /* mining-dark */
+    color: #ecf0f1; /* light text */
+  }
+  
+  /* Custom scrollbar for better aesthetics */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #2c3e50; /* mining-gray */
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #41a8e1; /* mining-light-blue */
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #3498db;
+  }
