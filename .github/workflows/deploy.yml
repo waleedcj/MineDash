@@ -2,7 +2,7 @@ name: Deploy Solid-Start App to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Trigger the action on push to the main branch
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
@@ -18,18 +18,24 @@ jobs:
           node-version: 20
           cache: 'npm'
 
+      # CORRECTED: All 'run' steps now use a working directory
       - name: Install Dependencies
         run: npm install --legacy-peer-deps
+        working-directory: ./MineDash # IMPORTANT: Replace with your repo name
 
       - name: Build
-        # This command builds your static site. The BASE_PATH environment
-        # variable is passed to your vite.config.ts
         run: npm run build
         env:
-          BASE_PATH: /MineDash/ # IMPORTANT: This MUST match your repository name
+          BASE_PATH: /MineDash/ # IMPORTANT: Replace with your repo name
+        working-directory: ./MineDash # IMPORTANT: Replace with your repo name
+
+      - name: Create .nojekyll file
+        run: touch .output/public/.nojekyll
+        working-directory: ./MineDash # IMPORTANT: Replace with your repo name
 
       - name: Deploy to gh-pages branch
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          branch: gh-pages # The branch the action will push the built code to
-          folder: .output/public # The folder where solid-start puts the static site
+          branch: gh-pages
+          # This folder path is relative to the root of your repository checkout
+          folder: MineDash/.output/public # CORRECTED: Point to the folder within the checkout
